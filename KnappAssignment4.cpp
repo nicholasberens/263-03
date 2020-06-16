@@ -24,15 +24,16 @@ class request{
 private:
 	string name;
 	unsigned int availableQuantity;
+	unsigned int sizeOfArray;
 	double prices[15];
 	
 public:
-	request();//should never call
-	//request(string name,unsigned int availableQuantity): name(name), availableQuantity(availableQuantity){}
-	request(string callName,unsigned int callAvailableQuantity, double *arr){
+	request(){};//should never call
+	request(string callName,unsigned int callAvailableQuantity, unsigned int callSizeOfArray, double *arr){
 		name = callName;
+		sizeOfArray = callAvailableQuantity;
 		availableQuantity = callAvailableQuantity;
-		for(int a = 0; a <= (9); a++){
+		for(int a = 0; a < (sizeOfArray); a++){
 			prices[a] = arr[a];
 		}
 	};
@@ -47,6 +48,9 @@ public:
 	};
 	unsigned int getAvailableQuantity(){
 		return availableQuantity;
+	};
+	unsigned int getSizeOfArray(){
+		return sizeOfArray;
 	};
 	double * getPrices(){
 		return prices;
@@ -65,19 +69,16 @@ int max(int a, int b) ;
  * @Returns: int 0 confirming main function completed
  **********************************************************************/
 int main (){
-  loadRequests();
-  //testFunction();
-  return 0;
-}
-
-/***********************************************************************
- * @Function: loadRequests
- * @Description: 
- * @Param: n/a
- * @Returns: n/a
- **********************************************************************/
-void loadRequests(){
+  
+	request temp{};
+	double *tempPrices;	
+	queue<request> myRequests;
+	int q;
 	
+	string tempRequestName;
+	unsigned int tempAvailableQuantity;
+	unsigned int tempSizeOfArray;
+	double tempArray[15];
 	
 	/*string line;
 	int i = 0;
@@ -102,53 +103,23 @@ void loadRequests(){
 	//read in all requests from a given file. 
 	//place requests in array to be worked through
 	*/
-	
-	
-	
-	
-	
-	double cats2[15] = {150.0,301.0,472.0,592.0,752.0,912.0,1100.0,1220.0,1368.0,1499.0};
-	request temp("cats",3,cats2);
-	//cats2[1] = 69;
-	double *tempPrices;
-	int n,q;
-	
-	//cout << temp.getName() << endl;
-	queue<request> myRequests;
-	myRequests.push(request("cats",10,cats2));
+	myRequests.push(request(tempRequestName,tempAvailableQuantity,tempSizeOfArray,tempArray));
 	
 	
 	while(!myRequests.empty()){
 		temp = myRequests.front();
 		tempPrices = temp.getPrices();
-		for(int i = 0; i <= 9; i++){
+		for(int i = 0; i < temp.getSizeOfArray(); i++){
 			cout << *(tempPrices + i) << endl;
 		}
-		//cout << temp.getName() << endl;
-		//cout << *(tempPrices + 1)<< endl;
 		q = determineOptimalValue(tempPrices, temp.getAvailableQuantity());
 		cout << q << endl;
 		myRequests.pop();
 	}
 	
-	
+  return 0;
 }
 
-/***********************************************************************
- * @Function: 
- * @Description: 
- * @Param: n/a
- * @Returns: n/a
- **********************************************************************/
-void testFunction(){
-/*
-	//manually entered array
-	int arr[] = {150,301,472,592,752,912,1100,1220,1368,1499};
-	int n = sizeof(arr) / sizeof(int);
-	int q = determineOptimalValue(arr, n);
-	cout << q << endl;
-	*/
-}
 
 /***********************************************************************
  * @Function: determineOptimalValue
