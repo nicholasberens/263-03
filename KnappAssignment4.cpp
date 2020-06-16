@@ -18,6 +18,7 @@
 
 using namespace std;
 
+#define max(a,b) ((a>b)? a : b)
  
 class request{
 	
@@ -33,8 +34,8 @@ public:
 		name = callName;
 		sizeOfArray = callAvailableQuantity;
 		availableQuantity = callAvailableQuantity;
-		for(int a = 0; a < (sizeOfArray); a++){
-			prices[a] = arr[a];
+		for(int count = 0; count < (sizeOfArray); count++){
+			prices[count] = arr[count];
 		}
 	};
 	
@@ -60,7 +61,6 @@ public:
 void loadRequests();
 void testFunction();
 int determineOptimalValue(double values[], int n);
-int max(int a, int b) ;
 
 /***********************************************************************
  * @Function: main
@@ -70,14 +70,12 @@ int max(int a, int b) ;
  **********************************************************************/
 int main (){
   
+  	queue<request> myRequests;
 	request temp{};
-	double *tempPrices;	
-	queue<request> myRequests;
-	int q;
-	
 	string tempRequestName;
-	unsigned int tempAvailableQuantity;
-	unsigned int tempSizeOfArray;
+	double *tempPrices;	
+	int q;
+	unsigned int tempAvailableQuantity, tempSizeOfArray;
 	double tempArray[15];
 	
 	/*string line;
@@ -103,6 +101,7 @@ int main (){
 	//read in all requests from a given file. 
 	//place requests in array to be worked through
 	*/
+	
 	myRequests.push(request(tempRequestName,tempAvailableQuantity,tempSizeOfArray,tempArray));
 	
 	
@@ -141,14 +140,4 @@ int determineOptimalValue(double values[], int n){
    } 
   
    return val[n]; 
-}
-
-/***********************************************************************
- * @Function: max
- * @Description: 
- * @Param: n/a
- * @Returns: n/a
- **********************************************************************/
-double max(double a, double b) { 
-	return (a > b)? a : b;
 }
