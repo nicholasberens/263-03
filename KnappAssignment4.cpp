@@ -11,8 +11,10 @@
 *
 *####################################################################*/
 #include <iostream>
-#include <string>
 #include <climits>
+#include <queue>
+#include <fstream>
+#include <cstring>
 
 using namespace std;
 
@@ -22,17 +24,29 @@ class request{
 private:
 	string name;
 	unsigned int availableQuantity;
-	double prices[];
+	double prices[15];
 	
 public:
 	request();//should never call
-	request(string name,unsigned int availableQuantity): name(name), availableQuantity(availableQuantity){}
+	//request(string name,unsigned int availableQuantity): name(name), availableQuantity(availableQuantity){}
+	request(string callName,unsigned int callAvailableQuantity, double arr[]){
+		int a = 0;
+		name = callName;
+		availableQuantity = callAvailableQuantity;
+		memcpy(prices,arr, sizeof(double));
+	}
 	
 	//setters
 	void setPrices(int values[]){
 		//this should fill this requests prices.
 	}
 	//getters
+	string getName(){
+		return name;
+	}
+	unsigned int getAvailableQuantity(){
+		return availableQuantity;
+	}
 };
 
 void loadRequests();
@@ -47,6 +61,7 @@ int max(int a, int b) ;
  * @Returns: int 0 confirming main function completed
  **********************************************************************/
 int main (){
+  loadRequests();
   testFunction();
   return 0;
 }
@@ -58,8 +73,38 @@ int main (){
  * @Returns: n/a
  **********************************************************************/
 void loadRequests(){
+	string line;
+	int i = 0;
+
+	fstream file;
+	string word, t, q, filename;
+
+	// filename of the file
+	filename = "sample.txt";
+
+	// opening file
+	file.open(filename.c_str());
+
+	// extracting words from the file
+	while (file >> word)
+	{
+    	// displaying content
+    		cout << word << endl;
+	}
+
+	file.close();
 	//read in all requests from a given file. 
-	//place requests in array to be worked through?
+	//place requests in array to be worked through
+	double cats2[15] = {3.0,4.5};
+	request temp("cats",3,cats2);
+	cout << temp.getName() << endl;
+	queue<request> myRequests;
+	
+	myRequests.push(request("cats",3,cats2));
+	//myRequests.push(request("dogs",4));
+	
+	
+	
 }
 
 /***********************************************************************
