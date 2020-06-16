@@ -30,10 +30,9 @@ public:
 	request();//should never call
 	//request(string name,unsigned int availableQuantity): name(name), availableQuantity(availableQuantity){}
 	request(string callName,unsigned int callAvailableQuantity, double *arr){
-		int a = 0;
 		name = callName;
 		availableQuantity = callAvailableQuantity;
-		for(int a = 0; a <= sizeof(arr) / sizeof(double); a++){
+		for(int a = 0; a <= (9); a++){
 			prices[a] = arr[a];
 		}
 	};
@@ -118,9 +117,13 @@ void loadRequests(){
 	queue<request> myRequests;
 	myRequests.push(request("cats",10,cats2));
 	
+	
 	while(!myRequests.empty()){
 		temp = myRequests.front();
 		tempPrices = temp.getPrices();
+		for(int i = 0; i <= 9; i++){
+			cout << *(tempPrices + i) << endl;
+		}
 		//cout << temp.getName() << endl;
 		//cout << *(tempPrices + 1)<< endl;
 		q = determineOptimalValue(tempPrices, temp.getAvailableQuantity());
