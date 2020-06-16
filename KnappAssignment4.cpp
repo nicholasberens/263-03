@@ -29,24 +29,29 @@ private:
 public:
 	request();//should never call
 	//request(string name,unsigned int availableQuantity): name(name), availableQuantity(availableQuantity){}
-	request(string callName,unsigned int callAvailableQuantity, double arr[]){
+	request(string callName,unsigned int callAvailableQuantity, double *arr){
 		int a = 0;
 		name = callName;
 		availableQuantity = callAvailableQuantity;
-		memcpy(prices,arr, sizeof(double));
-	}
+		for(int a = 0; a <= sizeof(arr) / sizeof(double); a++){
+			prices[a] = arr[a];
+		}
+	};
 	
 	//setters
 	void setPrices(int values[]){
 		//this should fill this requests prices.
-	}
+	};
 	//getters
 	string getName(){
 		return name;
-	}
+	};
 	unsigned int getAvailableQuantity(){
 		return availableQuantity;
-	}
+	};
+	double * getPrices(){
+		return prices;
+	};
 };
 
 void loadRequests();
@@ -62,7 +67,7 @@ int max(int a, int b) ;
  **********************************************************************/
 int main (){
   loadRequests();
-  testFunction();
+  //testFunction();
   return 0;
 }
 
@@ -73,7 +78,9 @@ int main (){
  * @Returns: n/a
  **********************************************************************/
 void loadRequests(){
-	string line;
+	
+	
+	/*string line;
 	int i = 0;
 
 	fstream file;
@@ -95,8 +102,18 @@ void loadRequests(){
 	file.close();
 	//read in all requests from a given file. 
 	//place requests in array to be worked through
+	*/
+	
+	
+	
+	
+	
 	double cats2[15] = {3.0,4.5};
 	request temp("cats",3,cats2);
+	cats2[1] = 45;
+	double *cats3;
+	cats3 = temp.getPrices();
+	cout << *(cats3  + 1)<< endl;
 	cout << temp.getName() << endl;
 	queue<request> myRequests;
 	
