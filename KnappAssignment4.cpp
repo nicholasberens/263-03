@@ -56,7 +56,7 @@ public:
 
 void loadRequests();
 void testFunction();
-int determineOptimalValue(int values[], int n);
+int determineOptimalValue(double values[], int n);
 int max(int a, int b) ;
 
 /***********************************************************************
@@ -108,18 +108,25 @@ void loadRequests(){
 	
 	
 	
-	double cats2[15] = {3.0,4.5};
+	double cats2[15] = {150.0,301.0,472.0,592.0,752.0,912.0,1100.0,1220.0,1368.0,1499.0};
 	request temp("cats",3,cats2);
-	cats2[1] = 45;
-	double *cats3;
-	cats3 = temp.getPrices();
-	cout << *(cats3  + 1)<< endl;
-	cout << temp.getName() << endl;
+	//cats2[1] = 69;
+	double *tempPrices;
+	int n,q;
+	
+	//cout << temp.getName() << endl;
 	queue<request> myRequests;
+	myRequests.push(request("cats",10,cats2));
 	
-	myRequests.push(request("cats",3,cats2));
-	//myRequests.push(request("dogs",4));
-	
+	while(!myRequests.empty()){
+		temp = myRequests.front();
+		tempPrices = temp.getPrices();
+		//cout << temp.getName() << endl;
+		//cout << *(tempPrices + 1)<< endl;
+		q = determineOptimalValue(tempPrices, temp.getAvailableQuantity());
+		cout << q << endl;
+		myRequests.pop();
+	}
 	
 	
 }
@@ -131,11 +138,13 @@ void loadRequests(){
  * @Returns: n/a
  **********************************************************************/
 void testFunction(){
+/*
 	//manually entered array
 	int arr[] = {150,301,472,592,752,912,1100,1220,1368,1499};
 	int n = sizeof(arr) / sizeof(int);
 	int q = determineOptimalValue(arr, n);
 	cout << q << endl;
+	*/
 }
 
 /***********************************************************************
@@ -144,14 +153,14 @@ void testFunction(){
  * @Param: n/a
  * @Returns: n/a
  **********************************************************************/
-int determineOptimalValue(int values[], int n){
+int determineOptimalValue(double values[], int n){
    int val[n+1]; 
    val[0] = 0; 
    int i, j; 
 
    for (i = 1; i<=n; i++) 
    { 
-       int max_val = INT_MIN; 
+       double max_val = INT_MIN; 
        for (j = 0; j < i; j++) 
          max_val = max(max_val, values[j] + val[i-j-1]); 
        val[i] = max_val; 
@@ -166,6 +175,6 @@ int determineOptimalValue(int values[], int n){
  * @Param: n/a
  * @Returns: n/a
  **********************************************************************/
-int max(int a, int b) { 
+double max(double a, double b) { 
 	return (a > b)? a : b;
 }
